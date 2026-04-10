@@ -1,0 +1,317 @@
+/* ───────────────────────────────────────────
+   Base & Reset
+─────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background: #f5f0e8;
+  background-image:
+    radial-gradient(circle at 20% 10%, rgba(255, 220, 200, 0.25) 0%, transparent 50%),
+    radial-gradient(circle at 80% 90%, rgba(200, 220, 255, 0.2) 0%, transparent 50%);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  font-family: 'Noto Serif KR', serif;
+  color: #3a3028;
+}
+
+/* ───────────────────────────────────────────
+   Card Container
+─────────────────────────────────────────── */
+.card {
+  width: 100%;
+  max-width: 430px;
+  min-height: 100vh;
+  background: #fffdf8;
+  padding: 48px 32px 56px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 배경 수직 장식선 */
+.card::before,
+.card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, #d4b896 20%, #d4b896 80%, transparent);
+  opacity: 0.4;
+}
+.card::before { left: 18px; }
+.card::after  { right: 18px; }
+
+/* ───────────────────────────────────────────
+   Decorative Elements
+─────────────────────────────────────────── */
+.deco-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 36px;
+}
+
+.deco-bottom {
+  margin-top: 36px;
+  margin-bottom: 24px;
+}
+
+.deco-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #c8a97e);
+}
+
+.deco-bottom .deco-line:last-child {
+  background: linear-gradient(to left, transparent, #c8a97e);
+}
+
+.deco-top .deco-line:last-child {
+  background: linear-gradient(to left, transparent, #c8a97e);
+}
+
+.deco-diamond {
+  color: #c8a97e;
+  font-size: 12px;
+  letter-spacing: 0;
+}
+
+.divider {
+  text-align: center;
+  margin: 28px 0;
+  color: #c8a97e;
+  font-size: 12px;
+  position: relative;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 38%;
+  height: 1px;
+  background: #e2d5c3;
+}
+.divider::before { left: 0; }
+.divider::after  { right: 0; }
+
+/* ───────────────────────────────────────────
+   Fade-in Animation
+─────────────────────────────────────────── */
+.fade-in {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ───────────────────────────────────────────
+   Label
+─────────────────────────────────────────── */
+.label {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 13px;
+  color: #a08060;
+  letter-spacing: 0.12em;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* ───────────────────────────────────────────
+   Hero Section
+─────────────────────────────────────────── */
+.hero {
+  text-align: center;
+}
+
+.photo-wrap {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 24px;
+}
+
+.photo-wrap img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  position: relative;
+  z-index: 1;
+  border: 4px solid #fffdf8;
+  box-shadow:
+    0 0 0 1px #d4b896,
+    0 8px 32px rgba(160, 120, 80, 0.18);
+}
+
+.photo-ring {
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 1px solid #d4b896;
+  opacity: 0.5;
+  z-index: 0;
+}
+
+.baby-name {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  color: #3a3028;
+  margin-bottom: 6px;
+}
+
+.baby-name-en {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 15px;
+  color: #a08060;
+  letter-spacing: 0.18em;
+  margin-bottom: 16px;
+}
+
+.hero-sub {
+  font-size: 13px;
+  color: #7a6a5a;
+  letter-spacing: 0.08em;
+  line-height: 1.9;
+}
+
+/* ───────────────────────────────────────────
+   Message Section
+─────────────────────────────────────────── */
+.message {
+  text-align: center;
+}
+
+.message-text {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 2.1;
+  color: #5a4e44;
+  letter-spacing: 0.04em;
+  margin-bottom: 28px;
+}
+
+.parents {
+  font-size: 15px;
+  font-weight: 400;
+  color: #3a3028;
+  letter-spacing: 0.12em;
+  line-height: 1.9;
+}
+
+.parents-label {
+  font-size: 12px;
+  color: #a08060;
+  font-weight: 300;
+}
+
+/* ───────────────────────────────────────────
+   Schedule Section
+─────────────────────────────────────────── */
+.schedule {
+  text-align: center;
+}
+
+.date-block {
+  background: linear-gradient(135deg, #fdf8f0, #f7efe2);
+  border: 1px solid #e2d5c3;
+  border-radius: 2px;
+  padding: 24px 20px;
+  margin-bottom: 16px;
+}
+
+.date-main {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: #3a3028;
+  margin-bottom: 8px;
+}
+
+.date-time {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 16px;
+  color: #a08060;
+  letter-spacing: 0.1em;
+}
+
+.venue-block {
+  padding: 16px 0 4px;
+}
+
+.venue-name {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: #3a3028;
+  margin-bottom: 6px;
+}
+
+.venue-address {
+  font-size: 12px;
+  color: #8a7a6a;
+  letter-spacing: 0.06em;
+  line-height: 1.7;
+}
+
+/* ───────────────────────────────────────────
+   Footer
+─────────────────────────────────────────── */
+.footer {
+  text-align: center;
+}
+
+.footer p {
+  font-size: 12px;
+  color: #b0a090;
+  letter-spacing: 0.08em;
+  line-height: 1.9;
+  font-style: italic;
+  font-family: 'Playfair Display', serif;
+}
+
+/* ───────────────────────────────────────────
+   Section Spacing
+─────────────────────────────────────────── */
+.section {
+  padding: 8px 0;
+}
+
+/* ───────────────────────────────────────────
+   Responsive: 데스크탑에서도 카드처럼 보이기
+─────────────────────────────────────────── */
+@media (min-width: 480px) {
+  body {
+    padding: 40px 16px;
+    align-items: flex-start;
+  }
+
+  .card {
+    border-radius: 2px;
+    box-shadow:
+      0 2px 8px rgba(0, 0, 0, 0.06),
+      0 16px 48px rgba(0, 0, 0, 0.08);
+    min-height: auto;
+  }
+}

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>백일잔치 초대장</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ─────────────────────────────────────────
+       커스터마이징 영역: 아래 값만 수정하세요
+  ───────────────────────────────────────── -->
+  <script>
+    const INFO = {
+      babyName: "송성연",          // 아기 이름
+      babyNameEn: "Seong Yeon",       // 영문 이름 (장식용)
+      dday: "2025년 12월 31일",       // 날짜
+      ddayTime: "오후 12시",        // 시간
+      venue: "우리집",   // 장소명
+      venueAddress: "거실",  // 주소
+      fatherName: "송민규",         // 아버지 이름
+      motherName: "김준영",         // 어머니 이름
+      photoSrc: "photo.jpg",        // 아기 사진 파일명
+      photoAlt: "성연이의 백일 사진",
+    };
+
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll("[data-key]").forEach((el) => {
+        const key = el.dataset.key;
+        if (INFO[key] !== undefined) el.textContent = INFO[key];
+      });
+      const photoEl = document.getElementById("baby-photo");
+      if (photoEl) {
+        photoEl.src = INFO.photoSrc;
+        photoEl.alt = INFO.photoAlt;
+      }
+    });
+  </script>
+
+  <main class="card">
+
+    <!-- 상단 장식 -->
+    <div class="deco-top">
+      <div class="deco-line"></div>
+      <span class="deco-diamond">✦</span>
+      <div class="deco-line"></div>
+    </div>
+
+    <!-- Hero 섹션 -->
+    <section class="section hero fade-in">
+      <p class="label">100 Days Celebration</p>
+      <div class="photo-wrap">
+        <img id="baby-photo" src="photo.jpg" alt="아기 사진" />
+        <div class="photo-ring"></div>
+      </div>
+      <h1 class="baby-name" data-key="babyName"></h1>
+      <p class="baby-name-en" data-key="babyNameEn"></p>
+      <p class="hero-sub">첫 백 일의 기쁨을 함께 나누고 싶습니다</p>
+    </section>
+
+    <div class="divider"><span>✦</span></div>
+
+    <!-- 인사말 섹션 -->
+    <section class="section message fade-in">
+      <p class="message-text">
+        저희에게 찾아온 작은 기적이<br />
+        어느새 백 일을 맞이했습니다.<br /><br />
+        그 감사하고 소중한 날을<br />
+        사랑하는 분들과 함께하고 싶어<br />
+        조심스레 자리를 마련하였습니다.<br /><br />
+        부디 오셔서 자리를 빛내주시고<br />
+        축복해 주시면 감사하겠습니다.
+      </p>
+      <p class="parents">
+        <span data-key="fatherName"></span> · <span data-key="motherName"></span>
+        <br /><span class="parents-label">의 부모 올림</span>
+      </p>
+    </section>
+
+    <div class="divider"><span>✦</span></div>
+
+    <!-- 일정 섹션 -->
+    <section class="section schedule fade-in">
+      <p class="label">Date &amp; Time</p>
+      <div class="date-block">
+        <p class="date-main" data-key="dday"></p>
+        <p class="date-time" data-key="ddayTime"></p>
+      </div>
+      <div class="venue-block">
+        <p class="venue-name" data-key="venue"></p>
+        <p class="venue-address" data-key="venueAddress"></p>
+      </div>
+    </section>
+
+    <!-- 하단 장식 -->
+    <div class="deco-top deco-bottom">
+      <div class="deco-line"></div>
+      <span class="deco-diamond">✦</span>
+      <div class="deco-line"></div>
+    </div>
+
+    <!-- 푸터 -->
+    <footer class="footer fade-in">
+      <p>아이와 함께 기쁨을 나눌 수 있어 행복합니다</p>
+    </footer>
+
+  </main>
+
+  <!-- Scroll fade-in observer -->
+  <script>
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("visible");
+            observer.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+    document.querySelectorAll(".fade-in").forEach((el) => observer.observe(el));
+  </script>
+
+</body>
+</html>
