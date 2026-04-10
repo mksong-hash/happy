@@ -33,8 +33,11 @@
       venueAddress: "거실",  // 주소
       fatherName: "송민규",         // 아버지 이름
       motherName: "김준영",         // 어머니 이름
-      photoSrc: "photo.png",        // 아기 사진 파일명
+      photoSrc: "main.jpeg",        // 아기 사진 파일명
       photoAlt: "성연이의 백일 사진",
+      gallery: "*",
+      githubUser: "mksong-hash",        // GitHub 사용자명
+      githubRepo: "happy",    // 레포지토리 이름
     };
 
     document.addEventListener("DOMContentLoaded", () => {
@@ -56,7 +59,52 @@
       };
       setMeta("og:title", INFO.babyName + " 백일잔치 초대장");
       setMeta("og:description", INFO.fatherName + " · " + INFO.motherName + "의 아이가 첫 백 일을 맞이했습니다. " + INFO.dday + " " + INFO.ddayTime);
+
+      // 갤러리 그리드 렌더링
+      if (INFO.gallery === "*") {
+        // GitHub Contents API로 루트 이미지 파일 자동 수집
+        const apiUrl = "https://api.github.com/repos/"
+          + INFO.githubUser + "/" + INFO.githubRepo + "/contents/";
+        fetch(apiUrl)
+          .then((r) => r.json())
+          .then((files) => {
+            const images = files
+              .filter((f) => /\.(jpg|jpeg|png|gif|webp)$/i.test(f.name))
+              .map((f) => f.name);
+            renderGallery(images);
+          })
+          .catch(() => {/* API 미접근 환경(로컬)에서는 갤러리 숨김 */});
+      } else if (Array.isArray(INFO.gallery) && INFO.gallery.length > 0) {
+        renderGallery(INFO.gallery);
+      }
     });
+
+    function renderGallery(images) {
+      if (!images || images.length === 0) return;
+      const grid = document.getElementById("gallery-grid");
+      images.forEach((src) => {
+        const item = document.createElement("div");
+        item.className = "gallery-item";
+        const img = document.createElement("img");
+        img.src = src;
+        img.alt = INFO.photoAlt;
+        img.loading = "lazy";
+        img.addEventListener("click", () => openLightbox(src));
+        item.appendChild(img);
+        grid.appendChild(item);
+      });
+      document.getElementById("gallery-section").style.display = "";
+    }
+
+    // 라이트박스
+    function openLightbox(src) {
+      const lb = document.getElementById("lightbox");
+      document.getElementById("lightbox-img").src = src;
+      lb.classList.add("open");
+    }
+    function closeLightbox() {
+      document.getElementById("lightbox").classList.remove("open");
+    }
   </script>
 
   <main class="card">
@@ -114,6 +162,13 @@
       </div>
     </section>
 
+    <!-- 갤러리 섹션 (gallery 배열이 비어있으면 숨김) -->
+    <section id="gallery-section" class="section gallery fade-in" style="display:none">
+      <div class="divider"><span>✦</span></div>
+      <p class="label">Gallery</p>
+      <div id="gallery-grid" class="gallery-grid"></div>
+    </section>
+
     <!-- 하단 장식 -->
     <div class="deco-top deco-bottom">
       <div class="deco-line"></div>
@@ -127,6 +182,12 @@
     </footer>
 
   </main>
+
+  <!-- 라이트박스 -->
+  <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    <img id="lightbox-img" src="" alt="" />
+  </div>
 
   <!-- Scroll fade-in observer -->
   <script>
