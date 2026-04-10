@@ -4,6 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>백일잔치 초대장</title>
+
+  <meta property="og:type"        content="website" />
+  <meta property="og:title"       content="백일잔치 초대장" />
+  <meta property="og:description" content="첫 백 일의 기쁨을 함께 나누고 싶습니다" />
+  <meta property="og:image"       content="https://mksong-hash.github.io/baby-100days/photo.jpg" />
+  <meta property="og:image:width"  content="800" />
+  <meta property="og:image:height" content="800" />
+  <meta property="og:locale"      content="ko_KR" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
@@ -38,6 +47,15 @@
         photoEl.src = INFO.photoSrc;
         photoEl.alt = INFO.photoAlt;
       }
+
+      // <title> 및 OG 태그를 INFO 값으로 동기화
+      document.title = INFO.babyName + " 백일잔치 초대장";
+      const setMeta = (prop, val) => {
+        const el = document.querySelector('meta[property="' + prop + '"]');
+        if (el) el.setAttribute("content", val);
+      };
+      setMeta("og:title", INFO.babyName + " 백일잔치 초대장");
+      setMeta("og:description", INFO.fatherName + " · " + INFO.motherName + "의 아이가 첫 백 일을 맞이했습니다. " + INFO.dday + " " + INFO.ddayTime);
     });
   </script>
 
